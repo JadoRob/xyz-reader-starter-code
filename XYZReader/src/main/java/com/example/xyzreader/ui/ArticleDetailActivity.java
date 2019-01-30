@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
@@ -153,7 +153,7 @@ public class ArticleDetailActivity extends AppCompatActivity
         mUpButton.setTranslationY(Math.min(mSelectedItemUpButtonFloor - upButtonNormalBottom, 0));
     }
 
-    private class MyPagerAdapter extends FragmentStatePagerAdapter {
+    private class MyPagerAdapter extends FragmentPagerAdapter {
         public MyPagerAdapter(FragmentManager fm) {
             super(fm);
         }
