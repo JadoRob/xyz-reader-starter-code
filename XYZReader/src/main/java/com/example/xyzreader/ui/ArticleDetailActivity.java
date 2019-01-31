@@ -1,15 +1,13 @@
 package com.example.xyzreader.ui;
 
 import android.database.Cursor;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
@@ -48,8 +46,7 @@ public class ArticleDetailActivity extends AppCompatActivity
         }
         setContentView(R.layout.activity_article_detail);
 
-        android.support.v4.app
-                .LoaderManager.getInstance(this).initLoader(0, null, this);
+        getSupportLoaderManager().initLoader(0, null, this);
 
         mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         mPager = findViewById(R.id.pager);
@@ -58,7 +55,7 @@ public class ArticleDetailActivity extends AppCompatActivity
                 .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics()));
         mPager.setPageMarginDrawable(new ColorDrawable(0x22000000));
 
-        mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+        mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageScrollStateChanged(int state) {
                 super.onPageScrollStateChanged(state);
@@ -109,12 +106,12 @@ public class ArticleDetailActivity extends AppCompatActivity
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+    public android.support.v4.content.Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return ArticleLoader.newAllArticlesInstance(this);
     }
 
     @Override
-    public void onLoadFinished(@NonNull android.support.v4.content.Loader<Cursor> cursorLoader, Cursor cursor) {
+    public void onLoadFinished(android.support.v4.content.Loader<Cursor> cursorLoader, Cursor cursor) {
         mCursor = cursor;
         mPagerAdapter.notifyDataSetChanged();
 
@@ -135,11 +132,10 @@ public class ArticleDetailActivity extends AppCompatActivity
     }
 
     @Override
-    public void onLoaderReset(@NonNull android.support.v4.content.Loader<Cursor> cursorLoader) {
+    public void onLoaderReset(android.support.v4.content.Loader<Cursor> cursorLoader) {
         mCursor = null;
         mPagerAdapter.notifyDataSetChanged();
     }
-
 
     public void onUpButtonFloorChanged(long itemId, ArticleDetailFragment fragment) {
         if (itemId == mSelectedItemId) {
@@ -153,7 +149,7 @@ public class ArticleDetailActivity extends AppCompatActivity
         mUpButton.setTranslationY(Math.min(mSelectedItemUpButtonFloor - upButtonNormalBottom, 0));
     }
 
-    private class MyPagerAdapter extends FragmentPagerAdapter {
+    private class MyPagerAdapter extends FragmentStatePagerAdapter {
         public MyPagerAdapter(FragmentManager fm) {
             super(fm);
         }
