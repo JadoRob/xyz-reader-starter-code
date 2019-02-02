@@ -12,8 +12,8 @@ public class Config {
     static {
         URL url = null;
         try {
-            //https://nspf.github.io/XYZReader/data.json
-            //https://go.udacity.com/xyz-reader-json
+            // https://nspf.github.io/XYZReader/data.json
+            // https://go.udacity.com/xyz-reader-json
             url = new URL("https://nspf.github.io/XYZReader/data.json" );
         } catch (MalformedURLException ignored) {
             // TODO: throw a real error

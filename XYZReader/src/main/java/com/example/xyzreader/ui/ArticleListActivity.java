@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
+
 import com.example.xyzreader.data.ItemsContract;
 import com.example.xyzreader.data.UpdaterService;
 import java.text.ParseException;
