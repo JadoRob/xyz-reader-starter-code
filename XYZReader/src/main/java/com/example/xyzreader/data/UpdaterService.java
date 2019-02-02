@@ -9,7 +9,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.RemoteException;
-import android.support.v4.app.JobIntentService;
 import android.text.format.Time;
 import android.util.Log;
 
@@ -21,7 +20,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class UpdaterService extends JobIntentService {
+public class UpdaterService extends IntentService {
     private static final String TAG = "UpdaterService";
 
     public static final String BROADCAST_ACTION_STATE_CHANGE
@@ -29,9 +28,12 @@ public class UpdaterService extends JobIntentService {
     public static final String EXTRA_REFRESHING
             = "com.example.xyzreader.intent.extra.REFRESHING";
 
+    public UpdaterService() {
+        super(TAG);
+    }
 
     @Override
-    protected void onHandleWork(Intent intent) {
+    protected void onHandleIntent(Intent intent) {
         Time time = new Time();
 
         ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
@@ -41,7 +43,7 @@ public class UpdaterService extends JobIntentService {
             return;
         }
 
-        sendBroadcast(
+        sendStickyBroadcast(
                 new Intent(BROADCAST_ACTION_STATE_CHANGE).putExtra(EXTRA_REFRESHING, true));
 
         // Don't even inspect the intent, we only do one thing, and that's fetch content.
@@ -78,7 +80,7 @@ public class UpdaterService extends JobIntentService {
             Log.e(TAG, "Error updating content.", e);
         }
 
-        sendBroadcast(
+        sendStickyBroadcast(
                 new Intent(BROADCAST_ACTION_STATE_CHANGE).putExtra(EXTRA_REFRESHING, false));
     }
 }
