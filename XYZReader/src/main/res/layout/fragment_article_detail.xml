@@ -111,8 +111,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
-        app:layout_anchor="@id/toolbar"
         android:src="@drawable/ic_share"
-        app:layout_anchorGravity="bottom|right" />
+        android:elevation="6dp"
+        app:layout_anchorGravity="bottom|right"
+        app:layout_anchor="@id/toolbar" />
 
 </android.support.design.widget.CoordinatorLayout>
